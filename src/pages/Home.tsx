@@ -44,7 +44,7 @@ const Home = () => {
           </Button>
         </div>
       </section>
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-[1200px] mx-0 mx-auto gap-4  p-4">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-[1400px] mx-auto gap-4  p-4">
         {Array.from({ length: 6 }).map((_, index) => (
           <Card
             key={index}
@@ -63,8 +63,11 @@ const Home = () => {
         ))}
       </section>
 
-      <main className="p-4 mt-6">
-        <p className="font-bold text-3xl">Your Study Sets</p>
+      <main className="p-4 mt-10">
+        <div className="flex justify-between px-4">
+          <p className="font-bold text-3xl">Your Study Sets</p>
+          <Button variant={"outline"}>See all</Button>
+        </div>
         <div className="grid grid-cols-3">
           <QuizList />
         </div>

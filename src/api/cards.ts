@@ -48,3 +48,10 @@ export const deleteCardByQuizId = async (quizId: string): Promise<void> => {
   const { error } = await supabase.from("cards").delete().eq("quiz_id", quizId);
   if (error) throw error;
 };
+
+export const fetchAllCards = async () => {
+  const { data, error } = await supabase.from("cards").select("*");
+  if (error) throw error;
+
+  return data;
+};

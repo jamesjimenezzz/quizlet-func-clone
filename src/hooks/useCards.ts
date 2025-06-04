@@ -1,12 +1,22 @@
-import { fetchCardsByQuizId, updateCard, deleteCard } from "@/api/cards";
-import { supabase } from "@/supabase/client";
+import {
+  fetchCardsByQuizId,
+  updateCard,
+  deleteCard,
+  fetchAllCards,
+} from "@/api/cards";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export const useFetchCards = (quizId: string) =>
+export const useFetchCards = (quizId?: string) =>
   useQuery({
-    queryKey: ["cards", quizId],
-    queryFn: () => fetchCardsByQuizId(quizId),
-    enabled: !!quizId,
+    queryKey: quizId ? ["cards", quizId] : ["cards"],
+    queryFn: () => {
+      if (quizId) {
+        return fetchCardsByQuizId(quizId);
+      } else {
+        return fetchAllCards();
+      }
+    },
+    enabled: true,
   });
 
 export const useUpdateCard = (quizId: string) => {
