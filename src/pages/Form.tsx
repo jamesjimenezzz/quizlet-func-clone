@@ -10,10 +10,8 @@ import {
 import Header from "@/components/Header";
 import { useQuizStore } from "../stores/quizStore";
 import { useCreateQuiz } from "../hooks/useQuizzes";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { CheckCircle2Icon } from "lucide-react";
+
 import { toast, Toaster } from "sonner";
-import { useNavigate } from "react-router";
 import ToastSuccessForm from "@/components/ToastSuccessForm";
 
 const Form = () => {
@@ -28,8 +26,6 @@ const Form = () => {
     removeCard,
     reset,
   } = useQuizStore();
-
-  const navigate = useNavigate();
 
   const { mutate, isPending } = useCreateQuiz();
 
@@ -52,7 +48,7 @@ const Form = () => {
           reset();
           addCard("", "");
           toast.custom(() => (
-            <ToastSuccessForm message="Quiz has been succesfully added" />
+            <ToastSuccessForm message="Quiz has been added succesfully." />
           ));
         },
       }
@@ -67,7 +63,7 @@ const Form = () => {
     );
 
   return (
-    <>
+    <div className="max-w-[1200px] mx-auto">
       <Header />
       <div className="w-full max-w-[800px] mx-auto text-base p-2 my-5">
         <div className="flex items-center justify-between mb-4">
@@ -179,7 +175,7 @@ const Form = () => {
         </div>
       </div>
       <Toaster />
-    </>
+    </div>
   );
 };
 

@@ -33,13 +33,16 @@ const QuizList = () => {
   if (isError) return <div>Error loading quizzes</div>;
 
   return (
-    <>
+    <div className="w-full   items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {quizzes?.map((quiz) => {
         const cardCount =
           allCards?.filter((card) => card.quiz_id === quiz.id).length || 0;
 
         return (
-          <Card key={quiz.id} className="max-w-md bg-transparent gap-1 my-5">
+          <Card
+            key={quiz.id}
+            className="w-full sm:max-w-md bg-transparent gap-2  my-5 md:mx-0"
+          >
             <CardHeader className="flex items-center justify-between">
               <CardTitle className="text-lg">{quiz.title}</CardTitle>
               <CardDescription className="">
@@ -97,7 +100,7 @@ const QuizList = () => {
           </Card>
         );
       })}
-    </>
+    </div>
   );
 };
 

@@ -22,7 +22,7 @@ const Home = () => {
   const { data: quizzes, isLoading, isError } = useFetchQuizzes();
 
   return (
-    <div className="max-w-[1400px] mx-auto ">
+    <div className="max-w-[1200px] items-center  mx-auto ">
       <Header />
       <section className="text-center my-10">
         <div className="max-w-2xl mx-auto space-y-3">
@@ -44,11 +44,11 @@ const Home = () => {
           </Button>
         </div>
       </section>
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-[1400px] mx-auto gap-4  p-4">
+      <section className="grid   grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  mx-auto gap-4  p-4">
         {Array.from({ length: 6 }).map((_, index) => (
           <Card
             key={index}
-            className="bg-transparent border border-stone-800 rounded-xs max-w-sm gap-1"
+            className="bg-transparent border border-stone-800 rounded-xs w-full sm:max-w-sm gap-1 "
           >
             <CardHeader>
               <CardTitle className="text-lg">Total Study Sets</CardTitle>
@@ -66,9 +66,11 @@ const Home = () => {
       <main className="p-4 mt-10">
         <div className="flex justify-between px-4">
           <p className="font-bold text-3xl">Your Study Sets</p>
-          <Button variant={"outline"}>See all</Button>
+          <Link to={"/library"}>
+            <Button variant={"outline"}>See all</Button>
+          </Link>
         </div>
-        <div className="grid grid-cols-3">
+        <div className="">
           <QuizList />
         </div>
       </main>

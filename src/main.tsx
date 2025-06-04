@@ -9,7 +9,7 @@ import Home from "./pages/Home.tsx";
 import { ThemeProvider } from "@/components/theme-provider";
 import QuizDetail from "./components/QuizDetail.tsx";
 import QuizFormDetail from "./components/QuizFormDetail.tsx";
-
+import Library from "./pages/Library.tsx";
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
@@ -20,6 +20,7 @@ createRoot(document.getElementById("root")!).render(
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/form" element={<Form />} />
+            <Route path="/library" element={<Library />} />
             <Route path="/quiz/:id" element={<QuizDetail />} />
             <Route path="/form/:id" element={<QuizFormDetail />} />
           </Routes>
