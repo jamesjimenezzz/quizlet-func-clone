@@ -40,6 +40,7 @@ import {
 const Library = () => {
   const { mutate: deleteAllData } = useDeleteAll();
   const { data: quizzes, isLoading, isError } = useFetchQuizzes();
+  const [query, setQuery] = useState("");
 
   const { mutate } = useDeleteQuiz();
   const [sortOption, setSortOption] = useState("");
@@ -59,22 +60,24 @@ const Library = () => {
       };
     });
 
+    const filtered = cardWithData.filter((quiz) =>
+      quiz.title.toLowerCase().includes(query.toLowerCase())
+    );
+
     switch (sortOption) {
       case "alphabetical":
-        return cardWithData.sort((a, b) => a.title.localeCompare(b.title));
+        return filtered.sort((a, b) => a.title.localeCompare(b.title));
       case "most-cards":
-        return cardWithData.sort(
-          (a, b) => (b.cardCount || 0) - (a.cardCount || 0)
-        );
+        return filtered.sort((a, b) => (b.cardCount || 0) - (a.cardCount || 0));
       case "recent":
       default:
-        return cardWithData.sort(
+        return filtered.sort(
           (a, b) =>
             new Date(b.created_at || "").getTime() -
             new Date(a.created_at || "").getTime()
         );
     }
-  }, [quizzes, allCards, sortOption]);
+  }, [quizzes, allCards, sortOption, query]);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading quizzes</div>;
@@ -106,7 +109,11 @@ const Library = () => {
         </div>
       </div>
       <div className="flex text-center items-center gap-5 mb-5 justify-between">
-        <InputAbs className="w-full  " />
+        <InputAbs
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="w-full  "
+        />
         <Funnel className="w-6 h-6" />
         <Select onValueChange={setSortOption} value={sortOption}>
           <SelectTrigger className="w-[180px]">
@@ -165,22 +172,22 @@ const Library = () => {
                     {quiz.description ||
                       "No description available for this study set."}
                   </p>
-                  <div className="flex-1 flex   gap-2">
+                  <div className="flex-1 flex    gap-2">
                     <ul className="">
-                      {quiz.cardQuestion?.map((card) => (
-                        <li key={card.id}>{card.question}</li>
+                      {quiz.cardQuestion?.map((question, index) => (
+                        <li key={index}>{question}</li>
                       ))}
                     </ul>
 
                     <ul className="">
-                      {quiz.cardQuestion?.map((card) => (
-                        <li key={card.id}>•</li>
+                      {quiz.cardQuestion?.map((question, index) => (
+                        <li key={index}>•</li>
                       ))}
                     </ul>
 
-                    <ul>
-                      {quiz.cardAnswer?.map((card) => (
-                        <li key={card.id}>{card.answer}</li>
+                    <ul className="">
+                      {quiz.cardAnswer?.map((answer, index) => (
+                        <li key={index}>{answer}</li>
                       ))}
                     </ul>
                   </div>
