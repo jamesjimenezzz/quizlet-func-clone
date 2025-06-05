@@ -32,9 +32,17 @@ const QuizList = () => {
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error loading quizzes</div>;
 
+  const latestQuizzes = [...(quizzes || [])]
+    .sort(
+      (a, b) =>
+        new Date(b.created_at || 0).getTime() -
+        new Date(a.created_at || 0).getTime()
+    )
+    .slice(0, 3);
+
   return (
     <div className="w-full   items-center grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {quizzes?.map((quiz) => {
+      {latestQuizzes?.map((quiz) => {
         const cardCount =
           allCards?.filter((card) => card.quiz_id === quiz.id).length || 0;
 

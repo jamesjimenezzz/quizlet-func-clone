@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
-import { useFetchCards } from "../hooks/useCards";
+import { useDeleteCard, useFetchCards } from "../hooks/useCards";
 import {
   useFetchQuizByQuizId,
   useUpdateQuizAndCards,
@@ -20,7 +20,7 @@ import ToastSuccessForm from "@/components/ToastSuccessForm";
 
 const QuizFormDetail = () => {
   const { id } = useParams<{ id: string }>();
-
+  const { mutate: deleteThisCard } = useDeleteCard(id!);
   const { data: cardsFromDb, isLoading: loadingCards } = useFetchCards(id!);
   const { data: quizFromDb, isLoading: loadingQuiz } = useFetchQuizByQuizId(
     id!
@@ -149,7 +149,10 @@ const QuizFormDetail = () => {
                 </div>
                 <Button
                   variant="destructive"
-                  onClick={() => removeCard(index)}
+                  onClick={() => {
+                    if (card.id) deleteThisCard(card.id);
+                    else removeCard(index);
+                  }}
                   className="mt-2"
                 >
                   Remove Card

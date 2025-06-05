@@ -40,6 +40,7 @@ export const useQuizStore = create<QuizStore>((set) => ({
     set((state) => {
       const updatedCards = [...state.cards];
       updatedCards.splice(index, 1);
+      console.log(index);
       return { cards: updatedCards };
     }),
   reset: () => set({ title: "", description: "", cards: [] }),

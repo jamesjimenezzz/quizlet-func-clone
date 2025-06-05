@@ -4,6 +4,7 @@ import {
   deleteQuiz,
   updateQuiz,
   fetchQuizbyQuizId,
+  deleteAll,
 } from "@/api/quizzes";
 import { type NewQuiz } from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -77,6 +78,18 @@ export const useUpdateQuizAndCards = () => {
     mutationFn: updateQuizAndCards,
     onSuccess: () => {
       queryClient.invalidateQueries(); // Refresh everything
+    },
+  });
+};
+
+export const useDeleteAll = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteAll,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["quizzes"] });
+      queryClient.invalidateQueries({ queryKey: ["cards"] });
     },
   });
 };

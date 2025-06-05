@@ -19,8 +19,6 @@ import { useFetchQuizzes } from "../hooks/useQuizzes";
 import QuizList from "@/components/QuizList";
 
 const Home = () => {
-  const { data: quizzes, isLoading, isError } = useFetchQuizzes();
-
   return (
     <div className="max-w-[1200px] items-center  mx-auto ">
       <Header />
@@ -65,7 +63,7 @@ const Home = () => {
 
       <main className="p-4 mt-10">
         <div className="flex justify-between px-4">
-          <p className="font-bold text-3xl">Your Study Sets</p>
+          <p className="font-bold text-3xl">Recent Study Sets</p>
           <Link to={"/library"}>
             <Button variant={"outline"}>See all</Button>
           </Link>
